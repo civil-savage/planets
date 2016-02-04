@@ -13,7 +13,7 @@ class Universe_Builder(object):
 
     def set_name(self):
         self.name = self.locations[self.location]
-        self.description ="This is place is called {}".format(self.name)
+        self.description ="This location is called {}.".format(self.name)
 
     def build_planet(self):
         return  type(str(self.planets[self.location]),(Planet,),dict(desc = "Test"))
@@ -36,8 +36,14 @@ class Planet(Universe_Builder):
         self.name = self.planets[self.location]
     
     def land(self):
-        if self.name = "Earth":
-            
+        if self.name == "Earth":
+            print('The eagle has landed.')
+        elif self.location < 4:
+            print("{} has a solid surface, however it is non inhabitable.").format(self.name)
+        else:
+            print("No solid surface on {}.").format(self.name)
+    
+
 
 class Moon(Universe_Builder):
 
@@ -54,6 +60,18 @@ print p.name
 p.move(-1)
 p.look()
 print p.name
+p.move(1)
+p.land()
+p.move(3)
+p.land()
+p.move(2)
+p.land()
+p.move(-7)
+p.land()
+p.move(1)
+p.land()
+p.move(1)
+p.land()
 # class Mercury(Planet):
 #     desc = "The smallest planet"
 
