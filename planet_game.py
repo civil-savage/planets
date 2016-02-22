@@ -1,11 +1,23 @@
 #!/usr/bin/python
 
 
+## This might be better off setting up a bunch of abstract clasess for
+## planets, Planets, Moons and moons, and then calling them.  Also the
+## interface needs more thought, Planet would be the _metaclass_ and
+## perhaps use the super(method to call into Universe_Builder?
+
+
+### Overall perhaps redesign this entire project.  The idea of
+### metaclassess is ok and perhaps also consider making it more
+### modular and try and decouple some of the clasess? Also the game
+### interface perhaps could be class instatiaed?
+
 class Universe_Builder(object):
 
     location = 2
     locations = ['Sun','Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto','Oort Cloud','Kupier Belt']
-    planets = ['Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune']
+
+    planets = ['Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto','Oort Cloud','Kupier Belt']
     moons = ['Luna', 'Pheobe', 'Io', 'Titan', 'Puck', 'Triton']
 
     def __init__(self):
@@ -15,7 +27,7 @@ class Universe_Builder(object):
         self.name = self.locations[self.location]
         self.description ="This location is called {}.".format(self.name)
 
-    def build_planet(self):
+    def build_planets(self):
         return  type(str(self.planets[self.location]),(Planet,),dict(desc = "Test"))
 
     def build_moon(self):
@@ -31,6 +43,7 @@ class Universe_Builder(object):
 
 
 class Planet(Universe_Builder):
+
 
     def set_name(self):
         self.name = self.planets[self.location]
@@ -51,72 +64,34 @@ class Moon(Universe_Builder):
         self.name = self.moon[self.location]
 
 
-i = Universe_Builder()
-bp = i.build_planet()
-p = bp()
 
-p.look()
-print p.name
-p.move(-1)
-p.look()
-print p.name
-p.move(1)
-p.land()
-p.move(3)
-p.land()
-p.move(2)
-p.land()
-p.move(-7)
-p.land()
-p.move(1)
-p.land()
-p.move(1)
-p.land()
-# class Mercury(Planet):
-#     desc = "The smallest planet"
-
-# class Venus(Planet):
-#     pass
-
-# class Earth(Planet):
-#     desc = "This planet is Mostly Harmless"
-#     pass
-
-# class Mars(Planet):
-#     pass
-
-# class Jupiter(Planet):
-#     desc = "The largest of the planets"
-
-# class Saturn(Planet):
-#     pass
-
-# class Uranus(Planet):
-#     pass
-
-# class Neptune(Planet):
-#     pass
+def start_screen(s):
+    if raw_input("Would you like to blast off and explore space? (Y/N) ").upper() == "Y":
+        print(s().name)
+    else:
+        print("Trouble on the launch pad, Abort, Abort")
 
 
+def game():
+    solar_system_location = Universe_Builder().build_planets()
+    start_screen(solar_system_location)
+    
 
-### WHEN MOVE IS CALLED WE WANT TO ALSO SET THE APPROPRIATE PLANET CLASS TO THE CURRENT INSTANCE.
-
-# p1 = Location()
-
-# print p1.description
-
-# p1.move(2)
-
-# print p1.description
-
-# x = Earth()
-
-# print x.description
-
-# x.look()
-
-# x.move(-2)
-
-# x.look()
-
-# print x.planets[x.location]
+game()
+# p.look()
+# print p.name
+# p.move(-1)
+# p.look()
+# print p.name
+# p.move(1)
+# p.land()
+# p.move(3)
+# p.land()
+# p.move(2)
+# p.land()
+# p.move(-7)
+# p.land()
+# p.move(1)
+# p.land()
+# p.move(1)
+# p.land()
